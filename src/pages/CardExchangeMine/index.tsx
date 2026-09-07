@@ -109,6 +109,7 @@ export default function CardExchangeMine() {
     || ownedIds.join(",") !== baseline.ownedIds.join(",")
     || wantedIds.join(",") !== baseline.wantedIds.join(",");
   return <View className={`${styles.mineRoot} ${themeClassName} ${!loggedIn ? styles.loginOnly : ""}`}>
+    {loggedIn ? <View className={styles.pageActions}><Button className={styles.subscriptionButton} onClick={() => Taro.navigateTo({ url: "/pages/CardExchangeSubscription/index" })}>消息订阅</Button></View> : null}
     {!loggedIn ? <View className={styles.loginBar}><View><Text className={styles.loginTitle}>登录后可同步资料</Text><Text className={styles.loginHint}>仅使用微信身份进行认证，不获取任何资料</Text></View><Button className={styles.loginButton} onClick={login}>微信登录</Button></View> : <>
       <View className={styles.profilePanel}>
       <View className={styles.field}><Text>UID</Text><Input value={uid} type="number" maxlength={10} className={styles.input} placeholder="请输入 9 或 10 位 UID" onInput={(event) => setUid(event.detail.value)} /></View>

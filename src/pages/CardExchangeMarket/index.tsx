@@ -4,19 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { usePageShare } from "../../hooks/usePageShare";
 import { useTheme } from "../../hooks/useTheme";
 import CardExchangeMine from "../CardExchangeMine";
+import CardCharacterAssociation from "../CardCharacterAssociation";
 import CardRarityRanking from "../CardRarityRanking";
 import CardTile from "./components/CardTile";
 import { cardCatalog, getCardById } from "./mockData";
 import { getCardExchangeProfile } from "./profileStore";
-import { CardExchangeServerFilter, CloudCardExchangeProfile, getCardExchangeLoginCache, getCardExchangeSubscriptionStatus, getPublishedCardExchangeProfilesPage, invalidateCardExchangeSubscriptionStatusCache, recordCardExchangeSubscription, sendCardExchangeNotification } from "../../services/cardExchangeCloud";
+import { CardExchangeServerFilter, CloudCardExchangeProfile, getCardExchangeLoginCache, getPublishedCardExchangeProfilesPage, sendCardExchangeNotification } from "../../services/cardExchangeCloud";
 import styles from "./index.module.less";
 import { getMyCardExchangeProfile, hideCardExchangeProfile } from "../../services/cardExchangeCloud";
 
-const EXCHANGE_NOTICE_TEMPLATE_ID = "oY82V5jBgWojqtCi07YJF_Hp_ED_6Z6wwUelaz8xKKA";
-const EXCHANGE_SUBSCRIPTION_AT_KEY = "moonboat-card-exchange-subscription-at-v1";
-
 type FilterTarget = "owned" | "wanted" | null;
-type MarketTab = "market" | "ranking" | "mine" | "subscription";
+type MarketTab = "market" | "ranking" | "mine" | "association";
 type ServerType = "official" | "bilibili" | "overseas";
 type ServerFilter = CardExchangeServerFilter;
 // 云函数每页最多返回 20 条展示数据；比原先 10 条少一半翻页与云函数调用。
@@ -70,7 +68,7 @@ export default function CardExchangeMarket() {
   const switchTab = (tab: MarketTab) => {
     if (tab === activeTab) return;
 
-    // 三个面板共用页面滚动容器，切换前归位以免沿用市场列表的触底位置。
+    // 各个面板共用页面滚动容器，切换前归位以免沿用市场列表的触底位置。
     Taro.pageScrollTo({
       scrollTop: 0,
       duration: 0,
@@ -84,14 +82,14 @@ export default function CardExchangeMarket() {
         {activeTab === "market" ? <MarketPanel /> : null}
         {activeTab === "ranking" ? <CardRarityRanking /> : null}
         {activeTab === "mine" ? <CardExchangeMine /> : null}
-        {activeTab === "subscription" ? <SubscriptionPanel /> : null}
+        {activeTab === "association" ? <CardCharacterAssociation /> : null}
       </View>
       <View className={styles.marketActions}>
         <View className={styles.islandIndicator} style={{ transform: `translateX(${activeTab === "market" ? "0" : activeTab === "mine" ? "100%" : activeTab === "ranking" ? "200%" : "300%"})` }} />
         <Button className={`${styles.islandTab} ${activeTab === "market" ? styles.islandTabActive : ""}`} onClick={() => switchTab("market")}>交换市场</Button>
         <Button className={`${styles.islandTab} ${activeTab === "mine" ? styles.islandTabActive : ""}`} onClick={() => switchTab("mine")}>我的圣牌</Button>
         <Button className={`${styles.islandTab} ${activeTab === "ranking" ? styles.islandTabActive : ""}`} onClick={() => switchTab("ranking")}>稀有排行</Button>
-        <Button className={`${styles.islandTab} ${activeTab === "subscription" ? styles.islandTabActive : ""}`} onClick={() => switchTab("subscription")}>消息订阅</Button>
+        <Button className={`${styles.islandTab} ${activeTab === "association" ? styles.islandTabActive : ""}`} onClick={() => switchTab("association")}>角色关联</Button>
       </View>
     </View>
   );
@@ -318,68 +316,4 @@ function MarketPanel() {
 
     </View>
   );
-}
-
-function SubscriptionPanel() {
-  const [subscribedAt, setSubscribedAt] = useState<string>(() => {
-    try {
-      return String(Taro.getStorageSync(EXCHANGE_SUBSCRIPTION_AT_KEY) || "");
-    } catch {
-      return "";
-    }
-  });
-  const [consumedAt, setConsumedAt] = useState("");
-  useEffect(() => {
-    getCardExchangeSubscriptionStatus().then((status) => {
-      if (status.subscribedAt) setSubscribedAt(status.subscribedAt);
-      setConsumedAt(status.consumedAt);
-    }).catch(() => {});
-  }, []);
-  const isSubscribed = Boolean(subscribedAt)
-    && (!consumedAt || new Date(consumedAt).getTime() < new Date(subscribedAt).getTime());
-  const subscribe = async () => {
-    if (isSubscribed) {
-      const confirmed = await Taro.showModal({
-        title: "确认再次订阅",
-        content: "当前已是订阅状态，除非认为订阅状态有误，否则不要重复订阅",
-        confirmText: "继续订阅",
-      });
-      if (!confirmed.confirm) return;
-    }
-    Taro.showLoading({ title: "正在订阅", mask: true });
-    try {
-      const result = await Taro.requestSubscribeMessage({ tmplIds: [EXCHANGE_NOTICE_TEMPLATE_ID] });
-      const status = result[EXCHANGE_NOTICE_TEMPLATE_ID];
-      if (status === "accept") {
-        const timestamp = new Date().toISOString();
-        await recordCardExchangeSubscription();
-        invalidateCardExchangeSubscriptionStatusCache();
-        setSubscribedAt(timestamp);
-        setConsumedAt("");
-        try {
-          Taro.setStorageSync(EXCHANGE_SUBSCRIPTION_AT_KEY, timestamp);
-        } catch {
-          // 本地状态写入失败不影响本次已完成的微信授权。
-        }
-        Taro.showToast({ title: "已开启换牌通知", icon: "success" });
-      }
-      else Taro.showToast({ title: "未开启通知", icon: "none" });
-    } catch {
-      Taro.showToast({ title: "订阅请求失败，请稍后重试", icon: "none" });
-    } finally {
-      Taro.hideLoading();
-    }
-  };
-  return <View className={styles.subscriptionRoot}>
-    <View className={styles.subscriptionContent}>
-      <View className={styles.subscriptionHead}><Text className={styles.subscriptionTitle}>消息订阅</Text><Text className={styles.subscriptionBeta}>Beta</Text></View>
-      <Text className={styles.subscriptionState}>当前状态：<Text className={`${styles.subscriptionStateValue} ${isSubscribed ? styles.subscriptionStateActive : styles.subscriptionStateInactive}`}>{isSubscribed ? "订阅中" : "未订阅"}</Text></Text>
-      {subscribedAt ? <Text className={styles.subscriptionStatus}>{isSubscribed ? `本次订阅已授权：${formatUpdatedAt(subscribedAt)}` : "最近一次订阅已用于发送通知，请再次订阅"}</Text> : null}
-      <Text className={styles.subscriptionText}><Text className={styles.subscriptionHintIcon}>✦</Text>开启后，当其他旅行者向你发起换牌请求时，会收到一条微信服务通知。</Text>
-      <Text className={styles.subscriptionHint}><Text className={styles.subscriptionHintIcon}>✦</Text>订阅消息需由你主动授权；每次授权通常对应一条换牌通知。</Text>
-      <Text className={styles.subscriptionHint}><Text className={styles.subscriptionHintIcon}>✦</Text>微信不提供实时查询他人或当前用户剩余订阅额度的接口，当前订阅状态仅推测。</Text>
-      <Text className={styles.subscriptionHint}><Text className={styles.subscriptionHintIcon}>✦</Text>当前功能为 Beta 版，可能存在 BUG，作者可能随时回退该功能。</Text>
-      <Button className={styles.subscribeButton} onClick={subscribe}>{subscribedAt ? "再次订阅" : "订阅换牌通知"}</Button>
-    </View>
-  </View>;
 }

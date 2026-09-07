@@ -56,7 +56,7 @@ export default function Index() {
   const cards = [
     {
       title: "月谕圣牌",
-      subtitle: "· 交换市场\n· 我的圣牌\n· 稀有度排行",
+      subtitle: "· 交换市场\n· 我的圣牌\n· 稀有度排行\n· 角色关联",
       iconImage: CARD_EXCHANGE_ICON,
       heroImage: CARD_EXCHANGE_HERO,
       url: "/pages/CardExchangeMarket/index",

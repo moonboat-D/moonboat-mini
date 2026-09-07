@@ -9,6 +9,7 @@ export default defineAppConfig({
     "pages/ScriptRecord/index",
     "pages/QrCode/index",
     "pages/CardExchangeMarket/index",
+    "pages/CardExchangeSubscription/index",
     "pages/About/index",
   ],
   window: {
