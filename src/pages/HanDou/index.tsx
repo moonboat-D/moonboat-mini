@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { idioms } from "./constants";
 import { usePageShare } from "../../hooks/usePageShare";
 import { useKeyboardFloating } from "../../hooks/useKeyboardFloating";
-import { useTheme } from "../../hooks/useTheme";
 import styles from "./index.module.less";
 
 type FeedbackStatus = "correct" | "present" | "absent" | "pending";
@@ -287,8 +286,6 @@ export default function HanDou() {
   const [isMasked, setIsMasked] = useState(() => savedGame?.isMasked ?? false);
   const [showHints, setShowHints] = useState(false);
   const keyboardFloating = useKeyboardFloating("handou-footer-keyboard");
-  const { themeClassName } = useTheme();
-
   useEffect(() => {
     saveGame({
       answerIndex,
@@ -406,7 +403,7 @@ export default function HanDou() {
       title: "换一题？",
       content: "当前输入和猜测记录将被清空。",
       confirmText: "刷新",
-      confirmColor: "#c8853e",
+      confirmColor: "#b89a68",
     }).then(({ confirm }) => {
       if (confirm) {
         resetGame();
@@ -424,7 +421,7 @@ export default function HanDou() {
   };
 
   return (
-    <View className={`${styles.hanDou} ${themeClassName}`}>
+    <View className={styles.hanDou}>
       <View className={styles.ruleBox}>
         <View className={styles.ruleHeader} onClick={() => setShowHints((visible) => !visible)}>
           <Text className={styles.ruleTitle}>提示</Text>
@@ -498,7 +495,7 @@ export default function HanDou() {
               onInput={(event) => handleInput(event.detail.value)}
               onConfirm={handlePrimaryAction}
             />
-            <Button className={styles.submitButton} onClick={handlePrimaryAction}>
+            <Button className={`${styles.submitButton} ${!input.trim() ? styles.refreshButton : ""}`} onClick={handlePrimaryAction}>
               {input.trim() ? "提交" : "刷新"}
             </Button>
           </>

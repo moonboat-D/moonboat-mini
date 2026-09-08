@@ -1,7 +1,6 @@
 import { Button, Image, Text, View } from "@tarojs/components";
 import { useState } from "react";
 import { getCharacterAvatar } from "./avatars";
-import CardTile from "../CardExchangeMarket/components/CardTile";
 import { cardCatalog } from "../CardExchangeMarket/mockData";
 import { cardCharacterAssociations, ElementId, elements } from "./data";
 import marketStyles from "../CardExchangeMarket/index.module.less";
@@ -26,15 +25,18 @@ export default function CardCharacterAssociation() {
   const visibleElements = elements.filter((element) => selected.includes(element.id));
   const toggle = (id: ElementId) => setSelected((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   return <View className={marketStyles.marketRoot}>
-    <View className={`${marketStyles.notice} ${marketStyles.friendly}`}><Text className={marketStyles.noticeIcon}>✦</Text><Text className={marketStyles.noticeText}>第3、6幕出战角色可能影响卡牌产出，数据仅供参考</Text></View>
+    <View className={`${marketStyles.notice} ${marketStyles.friendly}`}><Text className={marketStyles.noticeIcon}>✦</Text><Text className={marketStyles.noticeText}>出战角色可能影响卡牌产出，数据仅供参考</Text></View>
     <View className={styles.filterBar}>
-      <View className={styles.filters}>{elements.map((element) => <Button key={element.id} aria-label={`${element.name}元素${selected.includes(element.id) ? "，已选中" : "，未选中"}`} className={`${styles.elementButton} ${selected.includes(element.id) ? styles.selected : ""}`} onClick={() => toggle(element.id)}>
-        <ElementIcon element={element} />{selected.includes(element.id) ? <Text className={styles.check}>✓</Text> : null}
+      <View className={styles.filters}>{elements.map((element) => <Button key={element.id} aria-label={`${element.name}元素${selected.includes(element.id) ? "，已选中" : "，未选中"}`} className={`${styles.elementButton} ${selected.includes(element.id) ? styles.elementSelected : ""}`} style={selected.includes(element.id) ? { backgroundColor: element.background } : undefined} onClick={() => toggle(element.id)}>
+        <ElementIcon element={element} />
       </Button>)}</View>
       <Button className={marketStyles.resetButton} onClick={() => setSelected(elements.map((element) => element.id))}>重置</Button>
     </View>
     <View className={styles.list}>{visibleElements.length ? cardCatalog.map((card) => <View key={card.id} className={styles.cardBox}>
-      <View className={styles.cardArtwork}><CardTile card={card} /></View>
+      <View className={styles.cardArtwork}>
+        <Image className={styles.cardImage} src={card.image} mode="aspectFill" />
+        <Text className={styles.cardName}>{card.name}</Text>
+      </View>
       <View className={styles.rows}>{visibleElements.map((element) => {
         const names = cardCharacterAssociations[card.id][element.id];
         return <View key={element.id} className={styles.elementRow} style={{ backgroundColor: element.background }}>

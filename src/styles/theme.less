@@ -1,80 +1,48 @@
-// Global coffee theme mapped from the daisyUI "coffee" palette.
-// Keep the existing semantic aliases so page-level styles can share one source of truth.
-@color-base-100: #30231d;
-@color-base-200: #281c16;
-@color-base-300: #1d130f;
-@color-base-content: #d7b27c;
-
-@color-primary: #c8853e;
-@color-primary-content: #231a14;
-@color-secondary: #3e2a1f;
-@color-secondary-content: #e2c49a;
-@color-accent: #68482c;
-@color-accent-content: #ead0a7;
-@color-neutral: #20150f;
-@color-neutral-content: #d0b894;
-@color-info: #98cbcf;
-@color-info-content: #213639;
-@color-success: #8fc48f;
-@color-success-content: #1f3321;
-@color-warning: #f1cf70;
-@color-warning-content: #3a2c10;
-@color-error: #ed8b76;
-@color-error-content: #3b1e19;
-
-@color-bg-page: #30231d;
-@color-bg-page-soft: mix(@color-base-100, @color-base-200, 55%);
+// One shared palette: cream, warm brown and moonlit platinum.
+@color-base-100: #f7f3ed;
+@color-base-200: #fffcf8;
+@color-base-300: #eae0d0;
+@color-base-content: #302b27;
+@color-primary: #b89a68;
+@color-primary-content: #3a2618;
+@color-secondary: #ede2d1;
+@color-secondary-content: #655e57;
+@color-accent: #7c514d;
+@color-accent-content: #fffcf8;
+@color-neutral: #f3ede4;
+@color-neutral-content: #655e57;
+@color-info: #776951;
+@color-info-content: #fffcf8;
+@color-success: #4f7659;
+@color-success-content: #fffcf8;
+@color-warning: #926c32;
+@color-warning-content: #fffcf8;
+@color-error: #a14f46;
+@color-error-content: #fffcf8;
+@color-bg-page: @color-base-100;
+@color-bg-page-soft: #f3ede4;
 @color-bg-card: @color-base-200;
-@color-bg-card-soft: mix(@color-base-200, @color-base-300, 55%);
-@color-bg-elevated: mix(@color-base-100, @color-base-content, 88%);
-
+@color-bg-card-soft: #f3ede4;
+@color-bg-elevated: #fffcf8;
 @color-gold: @color-primary;
-@color-gold-soft: mix(#ffffff, @color-primary, 72%);
-@color-gold-deep: mix(@color-primary, @color-base-content, 74%);
-
-@color-text-primary: mix(#ffffff, @color-base-content, 82%);
-@color-text-secondary: mix(@color-text-primary, @color-base-content, 62%);
-@color-text-muted: mix(@color-base-300, @color-base-content, 38%);
-
-@color-border-subtle: mix(@color-base-300, @color-primary, 82%);
-@color-border-strong: mix(@color-base-200, @color-primary, 60%);
-
-@shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.72);
-@shadow-card: 0 12px 30px rgba(0, 0, 0, 0.64);
-@shadow-soft-light: 0 18px 44px rgba(138, 109, 62, 0.18);
-@shadow-card-light: 0 12px 30px rgba(149, 116, 65, 0.16);
-
+@color-gold-soft: #d7c8ae;
+@color-gold-deep: #806943;
+@color-text-primary: #302b27;
+@color-text-secondary: #655e57;
+@color-text-muted: #897e73;
+@color-border-subtle: #e8e2da;
+@color-border-strong: #b89a68;
+@shadow-soft: 0 12px 36px rgba(83, 66, 43, .07);
+@shadow-card: 0 6px 24px rgba(83, 66, 43, .045);
 @radius-lg: 32px;
 @radius-md: 24px;
 @radius-pill: 999px;
+@font-size-body: 24px;
+@font-size-secondary: 20px;
+@font-size-title: 30px;
 
 .moon-page-background() {
-  background:
-    radial-gradient(
-      ellipse at 16% 38%,
-      var(--color-page-glow-primary) 0%,
-      var(--color-page-glow-primary-soft) 22%,
-      transparent 46%
-    ),
-    radial-gradient(
-      ellipse at 88% 52%,
-      var(--color-page-glow-cream) 0%,
-      var(--color-page-glow-cream-soft) 26%,
-      transparent 52%
-    ),
-    radial-gradient(
-      ellipse at 36% 82%,
-      var(--color-page-glow-gold-soft) 0%,
-      var(--color-page-glow-gold-softer) 34%,
-      transparent 66%
-    ),
-    radial-gradient(
-      ellipse at 78% 92%,
-      var(--color-page-glow-accent) 0%,
-      var(--color-page-glow-accent-soft) 30%,
-      transparent 64%
-    ),
-    var(--color-bg-page);
+  background: var(--color-bg-page);
 }
 
 :root,
@@ -112,164 +80,43 @@ page {
   --color-text-muted: @color-text-muted;
   --color-border-subtle: @color-border-subtle;
   --color-border-strong: @color-border-strong;
-  --color-card-gradient: radial-gradient(circle at top left, rgba(200, 133, 62, 0.18), transparent 55%);
-  --color-page-glow-primary: rgba(200, 133, 62, 0.06);
-  --color-page-glow-primary-soft: rgba(200, 133, 62, 0.02);
-  --color-page-glow-cream: rgba(255, 244, 208, 0.04);
-  --color-page-glow-cream-soft: rgba(255, 244, 208, 0.016);
-  --color-page-glow-gold-soft: rgba(237, 215, 189, 0.07);
-  --color-page-glow-gold-softer: rgba(237, 215, 189, 0.03);
-  --color-page-glow-accent: rgba(104, 72, 44, 0.1);
-  --color-page-glow-accent-soft: rgba(104, 72, 44, 0.04);
   --shadow-soft: @shadow-soft;
   --shadow-card: @shadow-card;
-  --radius-selector: 1rem;
-  --radius-field: 0.5rem;
-  --radius-box: 1rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.1875rem;
-  --border: 1px;
-  --depth: 0;
-  --noise: 0;
-  color-scheme: dark;
-  color: var(--color-text-primary);
-}
-
-page {
-  background: var(--color-bg-page);
-}
-
-body {
-  background-color: var(--color-bg-page);
-  color: var(--color-text-primary);
-}
-
-.moon-theme-dark {
-  --color-base-100: @color-base-100;
-  --color-base-200: @color-base-200;
-  --color-base-300: @color-base-300;
-  --color-base-content: @color-base-content;
-  --color-primary: @color-primary;
-  --color-primary-content: @color-primary-content;
-  --color-secondary: @color-secondary;
-  --color-secondary-content: @color-secondary-content;
-  --color-accent: @color-accent;
-  --color-accent-content: @color-accent-content;
-  --color-neutral: @color-neutral;
-  --color-neutral-content: @color-neutral-content;
-  --color-info: @color-info;
-  --color-info-content: @color-info-content;
-  --color-success: @color-success;
-  --color-success-content: @color-success-content;
-  --color-warning: @color-warning;
-  --color-warning-content: @color-warning-content;
-  --color-error: @color-error;
-  --color-error-content: @color-error-content;
-  --color-bg-page: @color-bg-page;
-  --color-bg-page-soft: @color-bg-page-soft;
-  --color-bg-card: @color-bg-card;
-  --color-bg-card-soft: @color-bg-card-soft;
-  --color-bg-elevated: @color-bg-elevated;
-  --color-gold: @color-gold;
-  --color-gold-soft: @color-gold-soft;
-  --color-gold-deep: @color-gold-deep;
-  --color-text-primary: @color-text-primary;
-  --color-text-secondary: @color-text-secondary;
-  --color-text-muted: @color-text-muted;
-  --color-border-subtle: @color-border-subtle;
-  --color-border-strong: @color-border-strong;
-  --color-card-gradient: radial-gradient(circle at top left, rgba(200, 133, 62, 0.18), transparent 55%);
-  --color-page-glow-primary: rgba(200, 133, 62, 0.06);
-  --color-page-glow-primary-soft: rgba(200, 133, 62, 0.02);
-  --color-page-glow-cream: rgba(255, 244, 208, 0.04);
-  --color-page-glow-cream-soft: rgba(255, 244, 208, 0.016);
-  --color-page-glow-gold-soft: rgba(237, 215, 189, 0.07);
-  --color-page-glow-gold-softer: rgba(237, 215, 189, 0.03);
-  --color-page-glow-accent: rgba(104, 72, 44, 0.1);
-  --color-page-glow-accent-soft: rgba(104, 72, 44, 0.04);
-  --shadow-soft: @shadow-soft;
-  --shadow-card: @shadow-card;
-  color-scheme: dark;
-}
-
-.moon-theme-light {
-  --color-base-100: #fffaf1;
-  --color-base-200: #fff6e8;
-  --color-base-300: #ece1d0;
-  --color-base-content: #5a4632;
-  --color-primary: #b78947;
-  --color-primary-content: #fffaf1;
-  --color-secondary: #eadcc8;
-  --color-secondary-content: #5f4b35;
-  --color-accent: #d2ac72;
-  --color-accent-content: #4c3924;
-  --color-neutral: #efe7da;
-  --color-neutral-content: #6e573d;
-  --color-info: #4c8c96;
-  --color-info-content: #f8ffff;
-  --color-success: #4f8c5f;
-  --color-success-content: #f5fff6;
-  --color-warning: #b9892f;
-  --color-warning-content: #fff9ed;
-  --color-error: #c65f4c;
-  --color-error-content: #fff7f4;
-  --color-bg-page: #fffaf1;
-  --color-bg-page-soft: #fff6e8;
-  --color-bg-card: #fffaf1;
-  --color-bg-card-soft: #f5eddf;
-  --color-bg-elevated: #ffffff;
-  --color-gold: #b78947;
-  --color-gold-soft: #dfc79d;
-  --color-gold-deep: #956b34;
-  --color-text-primary: #3d3024;
-  --color-text-secondary: #6f5a42;
-  --color-text-muted: #967f60;
-  --color-border-subtle: #e5d2b2;
-  --color-border-strong: #c69b5e;
-  --color-card-gradient: radial-gradient(circle at top left, rgba(222, 194, 146, 0.36), transparent 55%);
-  --color-page-glow-primary: transparent;
-  --color-page-glow-primary-soft: transparent;
-  --color-page-glow-cream: transparent;
-  --color-page-glow-cream-soft: transparent;
-  --color-page-glow-gold-soft: transparent;
-  --color-page-glow-gold-softer: transparent;
-  --color-page-glow-accent: transparent;
-  --color-page-glow-accent-soft: transparent;
-  --shadow-soft: @shadow-soft-light;
-  --shadow-card: @shadow-card-light;
   color-scheme: light;
+  color: @color-text-primary;
+  background: @color-bg-page;
+  --surface-navigation: rgba(255, 252, 248, .62);
+  --surface-navigation-active: rgba(215, 200, 174, .42);
+  --shadow-navigation: 0 8px 26px rgba(83, 66, 43, .12);
+  --surface-primary: radial-gradient(ellipse at 100% 0%, rgba(255, 255, 255, .6), transparent 55%), radial-gradient(ellipse at 0% 100%, rgba(255, 250, 238, .5), transparent 55%), linear-gradient(135deg, #eee3d0, #e3d3b7 50%, #ebdec7);
+  --color-card-gradient: radial-gradient(ellipse at 100% 0%, rgba(234, 224, 208, .22), transparent 60%);
 }
+body {
+  margin: 0;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+}
+button::after { border: 0; }
+button[disabled] { opacity: .45; }
 
 .moon-card {
-  background:
-    var(--color-card-gradient),
-    var(--color-bg-card);
+  background: var(--color-bg-card);
   border-radius: @radius-lg;
   box-shadow: var(--shadow-card);
-  border: 1px solid var(--color-border-subtle);
+  border: 0;
 }
-
 .moon-button-primary {
-  background: var(--color-gold);
+  background: var(--surface-primary);
   color: var(--color-primary-content);
   border-radius: @radius-pill;
-  border: none;
-  box-shadow:
-    0 0 0 1px fade(@color-primary, 30%),
-    0 14px 28px rgba(0, 0, 0, 0.8);
+  border: 0;
+  box-shadow: var(--shadow-soft);
 }
-
-.moon-button-primary--ghost {
-  background: transparent;
-  color: var(--color-gold);
-  border-radius: @radius-pill;
-  border: 1px solid var(--color-border-strong);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-}
-
+.moon-button-primary--ghost,
 .moon-chip {
-  border-radius: @radius-pill;
-  background: var(--color-neutral);
-  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-card-soft);
   color: var(--color-text-secondary);
+  border-radius: @radius-pill;
+  border: 0;
+  box-shadow: none;
 }

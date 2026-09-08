@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import PokemonCard from "./components/PokemonCard";
 import { usePageShare } from "../../hooks/usePageShare";
 import { useKeyboardFloating } from "../../hooks/useKeyboardFloating";
-import { useTheme } from "../../hooks/useTheme";
 
 import styles from "./index.module.less";
 
@@ -20,7 +19,6 @@ export default function Pokemon() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<ObjectType[]>([]);
   const keyboardFloating = useKeyboardFloating("pokemon-footer-keyboard");
-  const { themeClassName } = useTheme();
 
   useEffect(() => {
     Taro.request({
@@ -33,7 +31,7 @@ export default function Pokemon() {
   }, []);
 
   return (
-    <View className={`${styles.pokemon} ${themeClassName}`}>
+    <View className={styles.pokemon}>
       <PokemonCard data={userAns} ans={ans} isQuestion />
 
       <View className={styles.pokemonHistory}>

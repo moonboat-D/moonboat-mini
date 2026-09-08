@@ -1,7 +1,6 @@
 import { Button, Input, Switch, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { useState } from "react";
-import { useTheme } from "../../hooks/useTheme";
 import { cardCatalog } from "../CardExchangeMarket/mockData";
 import CardTile from "../CardExchangeMarket/components/CardTile";
 import { getCardExchangeProfile, saveCardExchangeProfile } from "../CardExchangeMarket/profileStore";
@@ -23,7 +22,6 @@ export default function CardExchangeMine() {
   const [pickerIds, setPickerIds] = useState<string[]>([]);
   const [, setUpdatedAt] = useState(() => new Date().toISOString());
   const [loggedIn, setLoggedIn] = useState(getCardExchangeLoginCache);
-  const { themeClassName } = useTheme();
 
   const applyCloudProfile = (profile: CloudCardExchangeProfile | null) => {
       if (!profile) return;
@@ -108,13 +106,13 @@ export default function CardExchangeMine() {
     || isPublished !== baseline.isPublished
     || ownedIds.join(",") !== baseline.ownedIds.join(",")
     || wantedIds.join(",") !== baseline.wantedIds.join(",");
-  return <View className={`${styles.mineRoot} ${themeClassName} ${!loggedIn ? styles.loginOnly : ""}`}>
+  return <View className={`${styles.mineRoot} ${!loggedIn ? styles.loginOnly : ""}`}>
     {loggedIn ? <View className={styles.pageActions}><Button className={styles.subscriptionButton} onClick={() => Taro.navigateTo({ url: "/pages/CardExchangeSubscription/index" })}>消息订阅</Button></View> : null}
     {!loggedIn ? <View className={styles.loginBar}><View><Text className={styles.loginTitle}>登录后可同步资料</Text><Text className={styles.loginHint}>仅使用微信身份进行认证，不获取任何资料</Text></View><Button className={styles.loginButton} onClick={login}>微信登录</Button></View> : <>
       <View className={styles.profilePanel}>
       <View className={styles.field}><Text>UID</Text><Input value={uid} type="number" maxlength={10} className={styles.input} placeholder="请输入 9 或 10 位 UID" onInput={(event) => setUid(event.detail.value)} /></View>
       <View className={styles.field}><Text>备注</Text><Input value={activeTime} placeholder="活跃时间等其他备注" maxlength={24} className={styles.input} onInput={(event) => setActiveTime(event.detail.value)} /></View>
-      <View className={styles.field}><View className={styles.publishCopy}><Text>发布到市场</Text><Text className={styles.switchHint}>关闭后不会在市场展示</Text></View><Switch className={styles.publishSwitch} checked={isPublished} color="#c8853e" onChange={(event) => { setIsPublished(event.detail.value); setUpdatedAt(new Date().toISOString()); }} /></View>
+      <View className={styles.field}><View className={styles.publishCopy}><Text>发布到市场</Text><Text className={styles.switchHint}>关闭后不会在市场展示</Text></View><Switch className={styles.publishSwitch} checked={isPublished} color="#b89a68" onChange={(event) => { setIsPublished(event.detail.value); setUpdatedAt(new Date().toISOString()); }} /></View>
       </View>
       <View className={styles.cardBox}><View className={styles.cardBoxHead}><Text className={styles.sectionTitle}>我多余</Text><Button className={styles.chooseButton} onClick={() => openPicker("owned")}>选择</Button></View>{renderCards(ownedIds, "还没有选择可交换的卡牌")}</View>
       <View className={`${styles.cardBox} ${styles.wantBox}`}><View className={styles.cardBoxHead}><Text className={styles.sectionTitle}>我想要</Text><Button className={styles.chooseButton} onClick={() => openPicker("wanted")}>选择</Button></View>{renderCards(wantedIds, "还没有选择我想要的卡牌")}</View>

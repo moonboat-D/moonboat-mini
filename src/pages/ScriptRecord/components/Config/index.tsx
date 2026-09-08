@@ -12,7 +12,6 @@ import {
   type ScriptRecordData,
   type WishlistRecord,
 } from "../../data";
-import { useTheme } from "../../../../hooks/useTheme";
 import styles from "./index.module.less";
 
 type ListType = "played" | "wishlist";
@@ -94,7 +93,6 @@ const IMPORT_EXAMPLE = JSON.stringify(
 );
 
 export default function ScriptRecordConfig({ embedded = false }: { embedded?: boolean }) {
-  const { themeClassName } = useTheme();
   const [data, setData] = useState<ScriptRecordData>(
     () => loadCustomScriptRecordData() || getEmptyScriptRecordData(),
   );
@@ -260,7 +258,7 @@ export default function ScriptRecordConfig({ embedded = false }: { embedded?: bo
   }, [editorOpen, editingType, draft.desc, draft.comment]);
 
   return (
-    <View className={`${styles.page} ${themeClassName} ${embedded ? styles.embedded : ""}`}>
+    <View className={`${styles.page} ${embedded ? styles.embedded : ""}`}>
       <View className={styles.intro}>
         <Text className={styles.topNotice}>本页修改会保存在本机，并同步到剧本杀列表。</Text>
       </View>

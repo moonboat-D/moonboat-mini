@@ -16,8 +16,8 @@
   padding: 16px 18px;
   border-radius: 24px;
   background: fade(@color-base-300, 56%);
-  border: 1px solid fade(@color-gold, 16%);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.34);
+  border: 0;
+  box-shadow: var(--shadow-card);
 }
 
 .ruleHeader {
@@ -28,8 +28,8 @@
 
 .ruleTitle {
   display: block;
-  color: var(--color-gold-soft);
-  font-size: 28px;
+  color: var(--color-gold-deep);
+  font-size: 25px;
   font-weight: 800;
   line-height: 1.2;
   white-space: nowrap;
@@ -132,8 +132,8 @@
   padding: 10px;
   border-radius: 14px;
   background: fade(@color-base-300, 56%);
-  border: 1px solid fade(@color-gold, 16%);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.34);
+  border: 0;
+  box-shadow: var(--shadow-card);
 }
 
 .cell {
@@ -186,8 +186,8 @@
 }
 
 .absent {
-  background: #5f554d;
-  color: #efe0cb;
+  background: #e8e2da;
+  color: #655e57;
 }
 
 .pending {
@@ -221,34 +221,32 @@
 .input {
   flex: 1;
   min-width: 0;
-  height: 72px;
+  height: 64px;
   box-sizing: border-box;
-  padding: 0 24px;
+  padding: 0 .8rem;
   border-radius: 16px;
-  border: 1px solid fade(@color-gold, 24%);
-  background: fade(@color-base-300, 94%);
+  border: 0;
+  background: var(--color-bg-elevated);
   color: var(--color-text-primary);
-  font-size: 28px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.48);
+  font-size: 24px;
+  box-shadow: var(--shadow-card);
 }
 
 .submitButton {
-  min-width: 168px;
-  height: 72px;
+  min-width: 156px;
+  height: 64px;
   margin: 0;
-  padding: 0 28px;
-  border-radius: @radius-md;
+  padding: 0;
+  border-radius: 16px;
   border: none !important;
-  background: linear-gradient(135deg, fade(@color-gold-soft, 94%) 0%, @color-gold 100%);
+  background: var(--surface-primary);
   color: var(--color-primary-content);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  font-weight: 800;
-  box-shadow:
-    0 0 0 1px fade(@color-gold, 30%),
-    0 14px 28px rgba(0, 0, 0, 0.7);
+  font-size: 24px;
+  font-weight: 400;
+  box-shadow: var(--shadow-card);
 
   &::after,
   &::before {
@@ -259,6 +257,10 @@
 .resetButton {
   flex: 1;
   min-width: 0;
+}
+
+.refreshButton {
+  font-weight: 400;
 }
 
 .endButton {
@@ -273,83 +275,4 @@
 
 .endFooter .submitButton {
   max-width: 100%;
-}
-
-:global(.moon-theme-light).hanDou {
-  .ruleBox {
-    background: #ffffff;
-    border: 1px solid rgba(198, 155, 94, 0.18);
-    box-shadow: 0 8px 18px rgba(149, 116, 65, 0.08);
-  }
-
-  .ruleTitle {
-    color: var(--color-gold-deep);
-  }
-
-  .ruleText {
-    color: var(--color-text-secondary);
-  }
-
-  .foldText,
-  .hintLabel {
-    color: var(--color-text-muted);
-  }
-
-  .hintBox {
-    border-top: 1px solid rgba(198, 155, 94, 0.16);
-  }
-
-  .hintChip,
-  .pending {
-    background: #fff6e8;
-    color: var(--color-text-muted);
-    box-shadow: inset 0 0 0 1px rgba(198, 155, 94, 0.12);
-  }
-
-  .row {
-    background: #ffffff;
-    border: 1px solid rgba(198, 155, 94, 0.16);
-    box-shadow: 0 8px 18px rgba(149, 116, 65, 0.08);
-  }
-
-  .hanzi,
-  .part {
-    background: #fff6e8;
-    color: var(--color-text-secondary);
-  }
-
-  .part {
-    color: var(--color-text-muted);
-  }
-
-  .correct {
-    background: #78cfc4;
-    color: #123c38;
-    box-shadow: inset 0 0 0 1px rgba(18, 99, 91, 0.14);
-  }
-
-  .present {
-    background: #f2bd5b;
-    color: #4f3106;
-    box-shadow: inset 0 0 0 1px rgba(157, 94, 0, 0.14);
-  }
-
-  .absent {
-    background: #dde2e6;
-    color: #59636d;
-    box-shadow: inset 0 0 0 1px rgba(84, 98, 111, 0.12);
-  }
-
-  .input {
-    background: #ffffff;
-    border: 1px solid rgba(198, 155, 94, 0.26);
-    color: var(--color-text-primary);
-    box-shadow: 0 8px 16px rgba(149, 116, 65, 0.1);
-  }
-
-  .submitButton {
-    background: linear-gradient(135deg, #dcc598 0%, #b78947 100%);
-    color: #fffaf1;
-    box-shadow: 0 8px 16px rgba(149, 116, 65, 0.16);
-  }
 }

@@ -39,6 +39,7 @@ const GoldTotal = (props: GoldTotalProps) => {
             <View className={styles.statLabel}>每金抽数</View>
             <View
               className={styles.statValue}
+              style={{ color: Number(avgGold) > 62 ? "#ff4d4f" : "#52c41a" }}
             >
               {avgGold}
             </View>
@@ -47,6 +48,7 @@ const GoldTotal = (props: GoldTotalProps) => {
             <View className={styles.statLabel}>每限定抽数</View>
             <View
               className={styles.statValue}
+              style={{ color: Number(avgLimit) > 93 ? "#ff4d4f" : "#52c41a" }}
             >
               {avgLimit}
             </View>
@@ -55,6 +57,7 @@ const GoldTotal = (props: GoldTotalProps) => {
             <View className={styles.statLabel}>歪概率</View>
             <View
               className={styles.statValue}
+              style={{ color: Number(waiPercent) > 45 ? "#ff4d4f" : "#52c41a" }}
             >
               {waiPercent}%
             </View>

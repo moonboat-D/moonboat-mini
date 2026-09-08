@@ -1,7 +1,7 @@
 export default {
   navigationBarTitleText: "生成二维码",
-  navigationBarBackgroundColor: "#30231d",
-  navigationBarTextStyle: "white",
+  navigationBarBackgroundColor: "#F7F3ED",
+  navigationBarTextStyle: "black",
   enableShareAppMessage: true,
   enableShareTimeline: true,
 };

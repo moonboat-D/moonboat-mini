@@ -13,11 +13,11 @@ export default defineAppConfig({
     "pages/About/index",
   ],
   window: {
-    backgroundTextStyle: "light",
-    backgroundColor: "#30231d",
-    backgroundColorTop: "#30231d",
-    backgroundColorBottom: "#30231d",
-    navigationBarBackgroundColor: "#30231d",
-    navigationBarTextStyle: "white",
+    backgroundTextStyle: "dark",
+    backgroundColor: "#F7F3ED",
+    backgroundColorTop: "#F7F3ED",
+    backgroundColorBottom: "#F7F3ED",
+    navigationBarBackgroundColor: "#F7F3ED",
+    navigationBarTextStyle: "black",
   },
 });

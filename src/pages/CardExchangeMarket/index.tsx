@@ -2,7 +2,6 @@ import { Button, Picker, Text, View } from "@tarojs/components";
 import Taro, { useReachBottom } from "@tarojs/taro";
 import { useEffect, useRef, useState } from "react";
 import { usePageShare } from "../../hooks/usePageShare";
-import { useTheme } from "../../hooks/useTheme";
 import CardExchangeMine from "../CardExchangeMine";
 import CardCharacterAssociation from "../CardCharacterAssociation";
 import CardRarityRanking from "../CardRarityRanking";
@@ -64,7 +63,6 @@ const MARKET_NOTICES = [
 
 export default function CardExchangeMarket() {
   const [activeTab, setActiveTab] = useState<MarketTab>("market");
-  const { themeClassName } = useTheme();
   const switchTab = (tab: MarketTab) => {
     if (tab === activeTab) return;
 
@@ -77,7 +75,7 @@ export default function CardExchangeMarket() {
   };
 
   return (
-    <View className={`${styles.exchangeHub} ${themeClassName}`}>
+    <View className={styles.exchangeHub}>
       <View className={styles.panelStage} key={activeTab}>
         {activeTab === "market" ? <MarketPanel /> : null}
         {activeTab === "ranking" ? <CardRarityRanking /> : null}
@@ -118,7 +116,6 @@ function MarketPanel() {
   const [filterPickerIds, setFilterPickerIds] = useState<string[]>([]);
   const [noticeIndex, setNoticeIndex] = useState(0);
   const [noticeAnimating, setNoticeAnimating] = useState(false);
-  const { themeClassName } = useTheme();
   const selectedFilterIds = filterPickerIds;
   const requestExchange = async (post: CloudCardExchangeProfile) => {
     const profile = getCardExchangeProfile();
@@ -243,7 +240,7 @@ function MarketPanel() {
   usePageShare({ title: "圣牌市场", path: "/pages/CardExchangeMarket/index" });
 
   return (
-    <View className={`${styles.marketRoot} ${themeClassName}`}>
+    <View className={styles.marketRoot}>
       <View className={styles.noticeViewport}>
         <View
           className={`${styles.noticeTrack} ${noticeAnimating ? styles.noticeTrackAnimating : ""}`}

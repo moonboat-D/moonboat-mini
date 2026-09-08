@@ -1,6 +1,5 @@
 import { Text, View } from "@tarojs/components";
 import { usePageShare } from "../../hooks/usePageShare";
-import { useTheme } from "../../hooks/useTheme";
 
 import styles from "./index.module.less";
 
@@ -14,10 +13,8 @@ export default function About() {
     title: "关于月舟",
     path: "/pages/About/index",
   });
-  const { themeClassName } = useTheme();
-
   return (
-    <View className={`${styles.aboutPage} ${themeClassName}`}>
+    <View className={styles.aboutPage}>
       <View className={styles.contentCard}>
         <Text className={styles.aboutContent}>{ABOUT_CONTENT}</Text>
       </View>

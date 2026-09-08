@@ -1,5 +1,5 @@
 export default definePageConfig({
   navigationBarTitleText: "月舟 | 我的圣牌",
-  navigationBarBackgroundColor: "#30231d",
-  navigationBarTextStyle: "white",
+  navigationBarBackgroundColor: "#F7F3ED",
+  navigationBarTextStyle: "black",
 });

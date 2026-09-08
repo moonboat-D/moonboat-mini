@@ -1,7 +1,6 @@
 import { Image, Text, View } from "@tarojs/components";
 import { useEffect, useState } from "react";
 import { getCardRarityRanking } from "../../services/cardExchangeCloud";
-import { useTheme } from "../../hooks/useTheme";
 import { cardCatalog } from "../CardExchangeMarket/mockData";
 import { getCardExchangeProfile } from "../CardExchangeMarket/profileStore";
 import styles from "./index.module.less";
@@ -15,7 +14,6 @@ export default function CardRarityRanking() {
   const [wantedCardIds, setWantedCardIds] = useState<string[]>(() => getCardExchangeProfile().wantedIds);
   const [noticeIndex, setNoticeIndex] = useState(0);
   const [noticeAnimating, setNoticeAnimating] = useState(false);
-  const { themeClassName } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => setNoticeAnimating(true), 3000);
@@ -45,12 +43,12 @@ export default function CardRarityRanking() {
   }, []);
 
   return (
-    <View className={`${styles.rankingRoot} ${themeClassName}`}>
+    <View className={styles.rankingRoot}>
       <View className={styles.noticeViewport}>
         <View className={`${styles.noticeTrack} ${noticeAnimating ? styles.noticeTrackAnimating : ""}`} onTransitionEnd={completeNoticeTransition}>
           {[noticeIndex, (noticeIndex + 1) % 2].map((index) => (
             <View className={styles.notice} key={index}>
-              <Text className={styles.noticeIcon}>{index === 0 ? "✦" : "◌"}</Text>
+              <Text className={styles.noticeIcon}>✦</Text>
               <Text className={styles.noticeText}>{index === 0 ? "数字越小越稀有：有人想要 -1；有人多余 +1。" : `统计样本：${totalProfiles} 位市场发布者，实时更新`}</Text>
             </View>
           ))}

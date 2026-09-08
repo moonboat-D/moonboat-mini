@@ -1,8 +1,6 @@
-﻿import { View, Text, Image } from "@tarojs/components";
+import { View, Text, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
-import { useState } from "react";
 import { usePageShare } from "../../hooks/usePageShare";
-import { getThemeClassName, MoonTheme, useTheme } from "../../hooks/useTheme";
 
 import styles from "./index.module.less";
 
@@ -26,33 +24,11 @@ const CARD_EXCHANGE_ICON =
   "https://patchwiki.biligame.com/images/ys/8/8f/13zuc1pn9n7c42kniz2woqfxhivdtbu.png";
 const CARD_EXCHANGE_HERO =
   "https://patchwiki.biligame.com/images/ys/8/89/jl5xwjp6en6umgfb4cikiobjn074b9l.png";
-const THEME_SWITCH_ID = "moonboat-theme-switch";
-const THEME_RIPPLE_GROW_DELAY = 16;
-const THEME_REVEAL_DURATION = 560;
-const THEME_RIPPLE_RELEASE_DELAY =
-  THEME_RIPPLE_GROW_DELAY + THEME_REVEAL_DURATION + 120;
-const THEME_RIPPLE_CLEAR_DELAY = THEME_RIPPLE_RELEASE_DELAY + 120;
-
-type ThemeRippleState = {
-  active: boolean;
-  released: boolean;
-  oldTheme: MoonTheme;
-  oldThemeClassName: string;
-  theme: MoonTheme;
-  themeClassName: string;
-  centerX: number;
-  centerY: number;
-  radius: number;
-};
-
 export default function Index() {
   usePageShare({
     title: "月舟",
     path: "/pages/index/index",
   });
-  const { theme, themeClassName, setTheme } = useTheme();
-  const [themeRipple, setThemeRipple] = useState<ThemeRippleState | null>(null);
-
   const cards = [
     {
       title: "月谕圣牌",
@@ -124,75 +100,9 @@ export default function Index() {
     });
   };
 
-  const runThemeTransition = () => {
-    if (themeRipple?.active) return;
-
-    const nextTheme: MoonTheme = theme === "dark" ? "light" : "dark";
-    const systemInfo = Taro.getSystemInfoSync();
-    const fallbackX = systemInfo.windowWidth - 72;
-    const fallbackY = 92;
-
-    const startTransition = (
-      centerX: number,
-      centerY: number,
-      initialRadius: number,
-    ) => {
-      const maxX = Math.max(centerX, systemInfo.windowWidth - centerX);
-      const maxY = Math.max(centerY, systemInfo.windowHeight - centerY);
-      const radius = Math.sqrt(maxX * maxX + maxY * maxY) + 160;
-
-      setThemeRipple({
-        active: true,
-        released: false,
-        oldTheme: theme,
-        oldThemeClassName: getThemeClassName(theme),
-        theme: nextTheme,
-        themeClassName: getThemeClassName(nextTheme),
-        centerX,
-        centerY,
-        radius: initialRadius,
-      });
-
-      setTimeout(() => {
-        setThemeRipple((current) =>
-          current ? { ...current, radius } : current,
-        );
-      }, THEME_RIPPLE_GROW_DELAY);
-
-      setTheme(nextTheme);
-
-      setTimeout(() => {
-        setThemeRipple((current) =>
-          current ? { ...current, released: true } : current,
-        );
-      }, THEME_RIPPLE_RELEASE_DELAY);
-
-      setTimeout(() => {
-        setThemeRipple(null);
-      }, THEME_RIPPLE_CLEAR_DELAY);
-    };
-
-    Taro.createSelectorQuery()
-      .select(`#${THEME_SWITCH_ID}`)
-      .boundingClientRect((rect) => {
-        if (rect && !Array.isArray(rect)) {
-          startTransition(
-            rect.left + rect.width / 2,
-            rect.top + rect.height / 2,
-            Math.max(rect.width, rect.height) / 2 + 10,
-          );
-          return;
-        }
-
-        startTransition(fallbackX, fallbackY, 88);
-      })
-      .exec();
-  };
-
   const renderCard = (
     i: (typeof cards)[number],
     variant: "primary" | "wide" | "compact",
-    readonly = false,
   ) => {
     const imageSrc = "iconImage" in i ? i.iconImage : "";
     const backgroundImage = "backgroundImage" in i ? i.backgroundImage : "";
@@ -208,7 +118,7 @@ export default function Index() {
             ? styles.wideCard
             : styles.compactCard
       } ${backgroundImage ? styles.fixedBackgroundCard : ""}`}
-      onClick={readonly ? undefined : () => handleCardClick(i)}
+      onClick={() => handleCardClick(i)}
     >
       {isFeatureCard ? <>
         {backgroundImage ? <>
@@ -256,13 +166,13 @@ export default function Index() {
     </View>;
   };
 
-  const renderFunCard = (i: (typeof cards)[number], readonly = false) => {
+  const renderFunCard = (i: (typeof cards)[number]) => {
     const imageSrc = "iconImage" in i ? i.iconImage : "";
 
     return <View
       key={i.title}
       className={styles.funEntry}
-      onClick={readonly ? undefined : () => handleCardClick(i)}
+      onClick={() => handleCardClick(i)}
     >
       <View className={styles.funIconWrap}>
         {"iconKind" in i && i.iconKind === "sudoku" ? (
@@ -282,22 +192,22 @@ export default function Index() {
     </View>;
   };
 
-  const renderAboutCard = (i: (typeof cards)[number], readonly = false) => (
+  const renderAboutCard = (i: (typeof cards)[number]) => (
     <View
       className={styles.aboutBanner}
-      onClick={readonly ? undefined : () => handleCardClick(i)}
+      onClick={() => handleCardClick(i)}
     >
       <View className={styles.aboutBannerIcon}><Text>i</Text></View>
       <Text className={styles.aboutBannerTitle}>关于 月舟</Text>
     </View>
   );
 
-  const renderHomeContent = (displayTheme: MoonTheme, readonly = false) => (
+  const renderHomeContent = () => (
     <>
       <View className={styles.header}>
         <View
           className={styles.logoButton}
-          onClick={readonly ? undefined : handleLogoClick}
+          onClick={handleLogoClick}
         >
           <Image src={PROFILE_SMALL} className={styles.avatar} />
           <View className={styles.titleGroup}>
@@ -305,84 +215,33 @@ export default function Index() {
             <Text className={styles.brandEn}>moonboat</Text>
           </View>
         </View>
-        <View
-          id={readonly ? undefined : THEME_SWITCH_ID}
-          className={styles.themeSwitch}
-          onClick={readonly ? undefined : runThemeTransition}
-        >
-          <View
-            className={`${styles.themeSwitchThumb} ${
-              displayTheme === "light" ? styles.themeSwitchThumbRight : ""
-            }`}
-          />
-          <View
-            className={`${styles.themeSwitchItem} ${
-              displayTheme === "dark" ? styles.themeSwitchItemActive : ""
-            }`}
-          >
-            <Text className={styles.themeSwitchIcon}>☾</Text>
-            <Text className={styles.themeSwitchText}>深</Text>
-          </View>
-          <View
-            className={`${styles.themeSwitchItem} ${
-              displayTheme === "light" ? styles.themeSwitchItemActive : ""
-            }`}
-          >
-            <Text className={styles.themeSwitchIcon}>☀</Text>
-            <Text className={styles.themeSwitchText}>浅</Text>
-          </View>
-        </View>
       </View>
 
       <View className={styles.cardSections}>
         <View className={`${styles.cardList} ${styles.primaryCardList}`}>
-          {primaryCards.map((card) => renderCard(card, "primary", readonly))}
+          {primaryCards.map((card) => renderCard(card, "primary"))}
         </View>
 
         <View className={`${styles.cardList} ${styles.wideCardList}`}>
-          {wideCards.map((card) => renderCard(card, "wide", readonly))}
+          {wideCards.map((card) => renderCard(card, "wide"))}
         </View>
 
         <View className={styles.funHub}>
           <Text className={styles.funHubTitle}>轻松一刻</Text>
           <View className={styles.funEntryList}>
-            {funCards.map((card) => renderFunCard(card, readonly))}
+            {funCards.map((card) => renderFunCard(card))}
           </View>
         </View>
 
-        {renderAboutCard(aboutCard, readonly)}
+        {renderAboutCard(aboutCard)}
 
       </View>
     </>
   );
-
-  const baseTheme = themeRipple && !themeRipple.released ? themeRipple.oldTheme : theme;
-  const baseThemeClassName =
-    themeRipple && !themeRipple.released
-      ? themeRipple.oldThemeClassName
-      : themeClassName;
 
   return (
-    <>
-      <View
-        className={`${styles.container} ${baseThemeClassName} ${
-          themeRipple ? styles.themeTransitioning : ""
-        }`}
-      >
-        {renderHomeContent(baseTheme)}
-      </View>
-
-      {themeRipple ? (
-        <View
-          className={`${styles.container} ${styles.themeRevealLayer} ${themeRipple.themeClassName}`}
-          style={{
-            clipPath: `circle(${themeRipple.radius}px at ${themeRipple.centerX}px ${themeRipple.centerY}px)`,
-          }}
-        >
-          {renderHomeContent(themeRipple.theme, true)}
-        </View>
-      ) : null}
-    </>
+    <View className={styles.container}>
+      {renderHomeContent()}
+    </View>
   );
 }
-

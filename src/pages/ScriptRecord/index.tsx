@@ -8,7 +8,6 @@ import {
   type WishlistRecord,
 } from "./data";
 import { usePageShare } from "../../hooks/usePageShare";
-import { useTheme } from "../../hooks/useTheme";
 import ScriptRecordConfig from "./components/Config";
 
 import styles from "./index.module.less";
@@ -172,8 +171,6 @@ export default function ScriptRecord() {
     number | undefined
   >(undefined);
   const [recordData, setRecordData] = useState(loadScriptRecordData);
-  const { themeClassName } = useTheme();
-
   useDidShow(() => {
     setRecordData(loadScriptRecordData());
   });
@@ -321,7 +318,7 @@ export default function ScriptRecord() {
   );
 
   return (
-    <View className={`${styles.scriptRecord} ${themeClassName}`}>
+    <View className={styles.scriptRecord}>
       {activeNav === "config" ? <ScriptRecordConfig embedded /> : <View className={styles.cardList}>
         {visibleList.map((item) => renderScriptCard(item))}
       </View>}

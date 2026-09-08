@@ -23,8 +23,8 @@
   .moon-page-background();
   color: var(--color-text-primary);
 
-  .bottomNavigation { position: fixed; z-index: 30; right: 0; bottom: 32px; left: 50%; width: 560px; max-width: calc(100% - 56px); height: 88px; padding: 7px; box-sizing: border-box; display: flex; border-radius: 44px; overflow: hidden; background: rgba(52,39,31,.6); box-shadow: 0 16px 36px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.16); transform: translateX(-50%); -webkit-backdrop-filter: blur(20px) saturate(135%); backdrop-filter: blur(20px) saturate(135%); }
-  .bottomNavigationIndicator { position: absolute; z-index: -1; top: 7px; bottom: 7px; left: 7px; width: calc((100% - 14px) / 4); transition: transform 280ms cubic-bezier(.2,.75,.3,1); &::before { content: ""; position: absolute; top: 3px; right: 5px; bottom: 3px; left: 5px; border-radius: 34px; background: linear-gradient(135deg,@color-gold-soft,@color-gold); box-shadow: 0 5px 14px rgba(200,133,62,.28); } }
+  .bottomNavigation { position: fixed; z-index: 30; right: 0; bottom: 32px; left: 50%; width: 560px; max-width: calc(100% - 56px); height: 88px; padding: 7px; box-sizing: border-box; display: flex; border-radius: 44px; overflow: hidden; background: var(--surface-navigation); box-shadow: var(--shadow-navigation); transform: translateX(-50%); -webkit-backdrop-filter: blur(20px) saturate(135%); backdrop-filter: blur(20px) saturate(135%); }
+  .bottomNavigationIndicator { position: absolute; z-index: -1; top: 7px; bottom: 7px; left: 7px; width: calc((100% - 14px) / 4); transition: transform 280ms cubic-bezier(.2,.75,.3,1); &::before { content: ""; position: absolute; top: 3px; right: 5px; bottom: 3px; left: 5px; border-radius: 34px; background: var(--surface-navigation-active); box-shadow: none; } }
   .bottomNavigationItem { position: relative; z-index: 1; flex: 1; height: 72px; padding-top: 2px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 37px; color: var(--color-text-secondary); font-size: 20px; line-height: 72px; white-space: nowrap; transition: color 220ms ease, transform 220ms ease; }
   .bottomNavigationItemActive { color: #3a2618; font-weight: 800; }
   .bottomNavigationItem:active { transform: scale(.96); }
@@ -49,9 +49,7 @@
           transparent 62%
         ),
         var(--color-bg-card);
-      box-shadow:
-        inset 0 0 0 1px fade(@color-gold, 22%),
-        0 10px 24px rgba(0, 0, 0, 0.68);
+      box-shadow: var(--shadow-card);
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -66,14 +64,8 @@
       width: calc((100% - 10px) / 3);
       height: calc(100% - 10px);
       border-radius: @radius-pill;
-      background: linear-gradient(
-        135deg,
-        @color-gold-soft 0%,
-        @color-gold 100%
-      );
-      box-shadow:
-        0 0 0 1px fade(@color-gold, 40%),
-        0 12px 26px rgba(0, 0, 0, 0.9);
+      background: var(--surface-primary);
+      box-shadow: var(--shadow-card);
       transition: transform 0.26s ease;
       z-index: 0;
     }
@@ -104,7 +96,7 @@
     }
 
     .sortSwitchItemActive {
-      color: var(--color-bg-page);
+      color: var(--color-primary-content);
       font-weight: 700;
     }
 
@@ -117,11 +109,9 @@
       flex-shrink: 0;
       box-sizing: border-box;
       border-radius: 50%;
-      color: var(--color-gold-soft);
+      color: var(--color-gold-deep);
       background: var(--color-bg-card);
-      box-shadow:
-        inset 0 0 0 1px fade(@color-gold, 22%),
-        0 10px 24px rgba(0, 0, 0, 0.68);
+      box-shadow: var(--shadow-card);
       font-size: 38px;
       line-height: 1;
     }
@@ -134,18 +124,10 @@
   }
 
   .card {
-    background:
-      radial-gradient(
-        circle at top left,
-        fade(@color-gold, 16%),
-        transparent 55%
-      ),
-      var(--color-bg-card);
+    background: var(--color-bg-card);
     border-radius: @radius-md;
     padding: 16px;
-    box-shadow:
-      0 12px 28px rgba(0, 0, 0, 0.9),
-      0 0 0 1px fade(@color-gold, 18%);
+    box-shadow: var(--shadow-card);
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -159,7 +141,7 @@
     background-color: var(--color-bg-page-soft);
     object-fit: cover;
     flex-shrink: 0;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.85);
+    box-shadow: var(--shadow-card);
   }
 
   .cardRight {
@@ -190,7 +172,7 @@
     text-overflow: ellipsis;
     font-size: 32px;
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: var(--color-primary-content);
     flex: 1;
   }
 
@@ -204,12 +186,12 @@
   .playTime {
     font-weight: 500;
     font-size: 26px;
-    color: var(--color-text-secondary);
+    color: var(--color-primary-content);
   }
 
   .metaDivider {
     font-size: 26px;
-    color: var(--color-text-secondary);
+    color: var(--color-primary-content);
   }
 
   @card-player-avatar-size: 40px;
@@ -239,9 +221,9 @@
     overflow: hidden;
     flex-shrink: 0;
     box-sizing: border-box;
-    border: 2px solid fade(@color-bg-card, 96%);
+    border: 0;
     background-color: var(--color-bg-page-soft);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-card);
   }
 
   .cardPlayerAvatarWrap + .cardPlayerAvatarWrap {
@@ -266,7 +248,7 @@
 
   .description {
     font-size: 26px;
-    color: lighten(@color-text-muted, 10%);
+    color: var(--color-text-secondary);
     line-height: 1.6;
   }
 
@@ -294,7 +276,7 @@
     right: 0;
     bottom: 0;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.72);
+    background: rgba(48, 43, 39, .38);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -318,8 +300,8 @@
       ),
       var(--color-bg-card);
     border-radius: @radius-md;
-    border: 1px solid fade(@color-gold, 24%);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.85);
+    border: 0;
+    box-shadow: var(--shadow-card);
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
@@ -359,7 +341,7 @@
     object-fit: cover;
     flex-shrink: 0;
     background-color: var(--color-bg-page-soft);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.85);
+    box-shadow: var(--shadow-card);
   }
 
   .modalTopMeta {
@@ -378,7 +360,7 @@
     -webkit-line-clamp: 2;
     font-size: 34px;
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: var(--color-primary-content);
     line-height: 1.35;
   }
 
@@ -428,9 +410,9 @@
     overflow: hidden;
     flex-shrink: 0;
     box-sizing: border-box;
-    border: 2px solid fade(@color-bg-card, 96%);
+    border: 0;
     background-color: var(--color-bg-page-soft);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--shadow-card);
   }
 
   .modalPlayerAvatarWrap + .modalPlayerAvatarWrap {
@@ -475,7 +457,7 @@
     display: block;
     font-size: 28px;
     line-height: 1.65;
-    color: lighten(@color-text-muted, 10%);
+    color: var(--color-text-secondary);
     white-space: pre-wrap;
   }
 
@@ -489,63 +471,11 @@
     display: block;
     font-size: 28px;
     line-height: 1.65;
-    color: lighten(@color-text-muted, 10%);
+    color: var(--color-text-secondary);
     white-space: pre-wrap;
   }
 }
 
-:global(.moon-theme-light).scriptRecord {
-  .bottomNavigation { background: rgba(255, 253, 248, .82); box-shadow: 0 14px 28px rgba(149, 116, 65, .16), inset 0 1px 0 rgba(255,255,255,.96); }
-  .bottomNavigationItem { color: #76572e; }
-  .bottomNavigationItemActive { color: #4f3518; }
-
-  .sortBar {
-    .sortSwitch {
-      background: #ffffff;
-      box-shadow:
-        inset 0 0 0 1px rgba(198, 155, 94, 0.22),
-        0 8px 18px rgba(149, 116, 65, 0.08);
-    }
-
-    .sortSwitchThumb {
-      background: linear-gradient(135deg, #dcc598 0%, #b78947 100%);
-      box-shadow: 0 6px 12px rgba(149, 116, 65, 0.16);
-    }
-
-    .sortSwitchItemActive {
-      color: #fffaf1;
-    }
-
-    .settingsButton {
-      color: var(--color-gold-deep);
-      background: #ffffff;
-      box-shadow: inset 0 0 0 1px rgba(198, 155, 94, 0.22);
-    }
-  }
-
-  .card {
-    background: #ffffff;
-    border: 1px solid rgba(198, 155, 94, 0.18);
-    box-shadow: 0 10px 22px rgba(149, 116, 65, 0.1);
-  }
-
-  .cover {
-    background-color: #fffaf1;
-    box-shadow: 0 8px 16px rgba(149, 116, 65, 0.12);
-  }
-
-  .cardTitle,
-  .modalTitle {
-    color: var(--color-gold-deep);
-  }
-
-  .modalCover {
-    box-shadow: none;
-  }
-
-  .cardPlayerAvatarWrap,
-  .modalPlayerAvatarWrap {
-    border-color: transparent;
-    box-shadow: 0 2px 6px rgba(149, 116, 65, 0.12);
-  }
-}
+.scriptRecord .playTime { color: var(--color-primary-content); }
+.scriptRecord .modalSectionTitle { color: var(--color-accent); }
+.scriptRecord .bottomNavigation { bottom: calc(24px + env(safe-area-inset-bottom)); }

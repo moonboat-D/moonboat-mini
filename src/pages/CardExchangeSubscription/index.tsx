@@ -1,7 +1,6 @@
 import { Button, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { useEffect, useState } from "react";
-import { useTheme } from "../../hooks/useTheme";
 import { getCardExchangeSubscriptionStatus, invalidateCardExchangeSubscriptionStatusCache, recordCardExchangeSubscription } from "../../services/cardExchangeCloud";
 import styles from "./index.module.less";
 
@@ -27,7 +26,6 @@ const formatUpdatedAt = (updatedAt: string) => {
     : `${date.getFullYear()}.${monthDay}`;
 };
 export default function CardExchangeSubscription() {
-  const { themeClassName } = useTheme();
   const [subscribedAt, setSubscribedAt] = useState<string>(() => {
     try {
       return String(Taro.getStorageSync(EXCHANGE_SUBSCRIPTION_AT_KEY) || "");
@@ -77,7 +75,7 @@ export default function CardExchangeSubscription() {
       Taro.hideLoading();
     }
   };
-  return <View className={`${styles.subscriptionRoot} ${themeClassName}`}>
+  return <View className={styles.subscriptionRoot}>
     <View className={styles.subscriptionContent}>
       <View className={styles.subscriptionHead}><Text className={styles.subscriptionTitle}>消息订阅</Text><Text className={styles.subscriptionBeta}>Beta</Text></View>
       <Text className={styles.subscriptionState}>当前状态：<Text className={`${styles.subscriptionStateValue} ${isSubscribed ? styles.subscriptionStateActive : styles.subscriptionStateInactive}`}>{isSubscribed ? "订阅中" : "未订阅"}</Text></Text>

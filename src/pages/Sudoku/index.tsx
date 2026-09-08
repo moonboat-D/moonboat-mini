@@ -2,7 +2,6 @@ import { Button, Input, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePageShare } from "../../hooks/usePageShare";
-import { useTheme } from "../../hooks/useTheme";
 
 import styles from "./index.module.less";
 
@@ -241,8 +240,6 @@ export default function Sudoku() {
   const [difficultyInput, setDifficultyInput] = useState(String(DEFAULT_EMPTY_COUNT));
   const [completeFlashIndex, setCompleteFlashIndex] = useState(-1);
   const completeFlashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { themeClassName } = useTheme();
-
   const statuses = useMemo(() => createStatuses(grid), [grid]);
   const availableNumbers = useMemo(() => {
     if (selectedIndex < 0 || puzzle.givens[selectedIndex]) {
@@ -376,7 +373,7 @@ export default function Sudoku() {
   };
 
   return (
-    <View className={`${styles.sudokuPage} ${themeClassName}`}>
+    <View className={styles.sudokuPage}>
       <View className={styles.actionRow}>
         <Button
           className={styles.actionButton}

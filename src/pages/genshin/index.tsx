@@ -5,7 +5,6 @@ import Taro from "@tarojs/taro";
 import GoldTotal from "./components/GoldTotal";
 import { usePageShare } from "../../hooks/usePageShare";
 import { useKeyboardFloating } from "../../hooks/useKeyboardFloating";
-import { useTheme } from "../../hooks/useTheme";
 import { GachaType, GachaTypeKey } from "./constants";
 
 import styles from "./index.module.less";
@@ -79,8 +78,6 @@ export default function Genshin() {
   const [cacheTime, setCacheTime] = useState("");
   const exportCommand = `iex(irm 'https://img.lelaer.com/cn.ps1')`;
   const keyboardFloating = useKeyboardFloating("genshin-input-keyboard");
-  const { themeClassName } = useTheme();
-
   const copyExportCommand = () => {
     Taro.setClipboardData({
       data: exportCommand,
@@ -271,7 +268,7 @@ export default function Genshin() {
   }, [gachaParams]);
 
   return (
-    <View className={`${styles.genshin} ${themeClassName}`}>
+    <View className={styles.genshin}>
       {/** 数据展示 */}
       {allGoldData.length ? (
         <View className={styles.genshinBody}>
