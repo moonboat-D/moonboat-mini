@@ -25,7 +25,7 @@
 
   .bottomNavigation { position: fixed; z-index: 30; right: 0; bottom: 32px; left: 50%; width: 560px; max-width: calc(100% - 56px); height: 88px; padding: 7px; box-sizing: border-box; display: flex; border-radius: 44px; overflow: hidden; background: var(--surface-navigation); box-shadow: var(--shadow-navigation); transform: translateX(-50%); -webkit-backdrop-filter: blur(20px) saturate(135%); backdrop-filter: blur(20px) saturate(135%); }
   .bottomNavigationIndicator { position: absolute; z-index: -1; top: 7px; bottom: 7px; left: 7px; width: calc((100% - 14px) / 4); transition: transform 280ms cubic-bezier(.2,.75,.3,1); &::before { content: ""; position: absolute; top: 3px; right: 5px; bottom: 3px; left: 5px; border-radius: 34px; background: var(--surface-navigation-active); box-shadow: none; } }
-  .bottomNavigationItem { position: relative; z-index: 1; flex: 1; height: 72px; padding-top: 2px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 37px; color: var(--color-text-secondary); font-size: 20px; line-height: 72px; white-space: nowrap; transition: color 220ms ease, transform 220ms ease; }
+  .bottomNavigationItem { position: relative; z-index: 1; flex: 1; height: 72px; padding-top: 2px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 37px; color: var(--color-text-secondary); font-size: @font-size-secondary; line-height: 72px; white-space: nowrap; transition: color 220ms ease, transform 220ms ease; }
   .bottomNavigationItemActive { color: #3a2618; font-weight: 800; }
   .bottomNavigationItem:active { transform: scale(.96); }
 
@@ -35,7 +35,7 @@
     justify-content: flex-end;
     gap: 16px;
     margin-bottom: 24px;
-    font-size: 28px;
+    font-size: @font-size-secondary;
 
     .sortSwitch {
       position: relative;
@@ -170,7 +170,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 32px;
+    font-size: @font-size-title;
     font-weight: 600;
     color: var(--color-primary-content);
     flex: 1;
@@ -185,12 +185,12 @@
 
   .playTime {
     font-weight: 500;
-    font-size: 26px;
+    font-size: @font-size-secondary;
     color: var(--color-primary-content);
   }
 
   .metaDivider {
-    font-size: 26px;
+    font-size: @font-size-secondary;
     color: var(--color-primary-content);
   }
 
@@ -240,14 +240,14 @@
   .cardPlayersRest {
     flex: 1;
     min-width: 0;
-    font-size: 24px;
+    font-size: @font-size-body;
     line-height: 1.5;
     color: var(--color-text-muted);
     word-break: break-all;
   }
 
   .description {
-    font-size: 26px;
+    font-size: @font-size-body;
     color: var(--color-text-secondary);
     line-height: 1.6;
   }
@@ -358,7 +358,7 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    font-size: 34px;
+    font-size: @font-size-title;
     font-weight: 600;
     color: var(--color-primary-content);
     line-height: 1.35;
@@ -372,13 +372,13 @@
   }
 
   .modalPlayTime {
-    font-size: 28px;
+    font-size: @font-size-secondary;
     color: var(--color-text-secondary);
     font-weight: 500;
   }
 
   .modalMetaDivider {
-    font-size: 28px;
+    font-size: @font-size-secondary;
     color: var(--color-text-secondary);
     opacity: 0.55;
   }
@@ -429,7 +429,7 @@
   .modalPlayersRest {
     flex: 1;
     min-width: 0;
-    font-size: 26px;
+    font-size: @font-size-body;
     line-height: 1.5;
     color: var(--color-text-muted);
     word-break: break-all;
@@ -446,7 +446,7 @@
 
   .modalSectionTitle {
     display: block;
-    font-size: 26px;
+    font-size: @font-size-title;
     font-weight: 600;
     color: var(--color-text-secondary);
     margin-bottom: 10px;
@@ -455,7 +455,7 @@
 
   .modalSynopsis {
     display: block;
-    font-size: 28px;
+    font-size: @font-size-body;
     line-height: 1.65;
     color: var(--color-text-secondary);
     white-space: pre-wrap;
@@ -469,7 +469,7 @@
 
   .modalNoteText {
     display: block;
-    font-size: 28px;
+    font-size: @font-size-body;
     line-height: 1.65;
     color: var(--color-text-secondary);
     white-space: pre-wrap;
