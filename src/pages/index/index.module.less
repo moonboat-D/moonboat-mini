@@ -101,10 +101,6 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-.secondaryCardList {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .funHub {
   padding: 22px;
   box-sizing: border-box;
@@ -192,7 +188,7 @@
   display: block;
   flex-shrink: 0;
   color: var(--color-gold-deep);
-  font-size: 25px;
+  font-size: @font-size-body;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -218,7 +214,7 @@
   justify-content: center;
   box-sizing: border-box;
   color: #31231a;
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 800;
   border-right: 1px solid #31231a;
   border-bottom: 1px solid #31231a;
@@ -269,7 +265,7 @@
     align-items: center;
     justify-content: center;
     font-family: Georgia, serif;
-    font-size: 31px;
+    font-size: @font-size-title;
     font-weight: 700;
     font-style: italic;
     line-height: 1;
@@ -331,48 +327,6 @@
   aspect-ratio: 2.74 / 1;
   padding: 26px;
   overflow: hidden;
-}
-
-.compactCard {
-  min-height: 0;
-  aspect-ratio: 1;
-  padding: 16px 8px;
-  justify-content: space-evenly;
-}
-
-.cardIconWrap {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 22px;
-  overflow: hidden;
-  background: #fffaf1;
-  box-shadow: var(--shadow-card);
-}
-
-.primaryCard .cardIconWrap {
-  position: absolute;
-  top: -48px;
-  left: 50%;
-  width: 96px;
-  height: 96px;
-  margin: 0;
-  transform: translateX(-50%);
-}
-
-.wideCard .cardIconWrap {
-  position: absolute;
-  top: -48px;
-  left: 50%;
-  width: 96px;
-  height: 96px;
-  margin: 0;
-  transform: translateX(-50%);
 }
 
 .featureArtwork {
@@ -502,128 +456,6 @@
   white-space: pre-line;
 }
 
-.compactCard .cardIconWrap {
-  width: 86px;
-  height: 86px;
-  margin-bottom: 0;
-}
-
-.cardIconImage {
-  width: 96px;
-  height: 96px;
-  display: block;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.compactCard .cardIconImage {
-  width: 86px;
-  height: 86px;
-}
-
-.sudokuIcon {
-  width: 72px;
-  height: 72px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  overflow: hidden;
-  border: 3px solid #2c2119;
-  border-radius: 8px;
-  background: #fffaf1;
-}
-
-.mbtiIcon {
-  width: 72px;
-  height: 72px;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  justify-items: center;
-  padding: 0 8px;
-  border-radius: 16px;
-  color: #fffaf1;
-  background: linear-gradient(135deg, #7655a5, #bd8652);
-  box-shadow: var(--shadow-card);
-
-  text {
-    font-size: 22px;
-    line-height: 1;
-    font-weight: 900;
-    letter-spacing: -.05em;
-  }
-}
-
-.aboutIcon {
-  width: 72px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 4px solid #6c472d;
-  border-radius: 50%;
-  color: #6c472d;
-  background: #fffaf1;
-
-  text {
-    margin-top: -2px;
-    font-family: Georgia, serif;
-    font-size: 54px;
-    font-weight: 700;
-    font-style: italic;
-    line-height: 1;
-  }
-}
-
-.tradeIcon {
-  width: 78px;
-  height: 78px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  color: #fff8e8;
-  background: linear-gradient(135deg, #c88748, #76462c);
-  box-shadow: var(--shadow-card);
-}
-
-.tradeIconCard {
-  font-size: 24px;
-  line-height: 1;
-}
-
-.tradeIconArrow {
-  margin: 0 -2px;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.sudokuIconCell {
-  min-width: 0;
-  min-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-right: 1px solid rgba(44, 33, 25, 0.34);
-  border-bottom: 1px solid rgba(44, 33, 25, 0.34);
-  color: #2c2119;
-  font-size: 18px;
-  line-height: 1;
-  font-weight: 800;
-
-  &:nth-child(3n) {
-    border-right: none;
-  }
-
-  &:nth-child(n + 7) {
-    border-bottom: none;
-  }
-}
-
 .cardTitle {
   position: relative;
   z-index: 1;
@@ -645,97 +477,6 @@
   font-size: @font-size-title;
 }
 
-.compactCard .cardOrnament {
-  width: 90px;
-  gap: 10px;
-  margin-top: 0;
-}
-
-.compactCard .ornamentLine {
-  width: 33px;
-}
-
-.compactCard .ornamentDot {
-  width: 7px;
-  height: 7px;
-}
-
-.ornamentLine {
-  width: 38px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--surface-primary);
-}
-
-.ornamentDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--color-gold-soft);
-  transform: rotate(45deg);
-  box-shadow: var(--shadow-card);
-}
-
-.compactCard .cardTitle {
-  font-size: @font-size-title;
-}
-
-.cardOrnament {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 104px;
-  margin-top: 20px;
-}
-
-.footerSlogan {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  width: 100%;
-  margin-top: 52px;
-  color: var(--color-gold-deep);
-}
-
-.footerText {
-  font-size: @font-size-body;
-  line-height: 1.2;
-  color: inherit;
-  letter-spacing: 0.12em;
-  text-shadow: none;
-}
-
-.footerMoon {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
-  overflow: hidden;
-  border-radius: 50%;
-  font-size: 0;
-  line-height: 0;
-  color: transparent;
-  background: var(--color-gold-soft);
-  box-shadow: var(--shadow-card);
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: -2px;
-    right: -5px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--color-bg-page);
-  }
-}
-
 .container { padding-top: 52px; }
 .header { margin-bottom: 48px; }
 .avatar { border: 0; box-shadow: none; }
@@ -748,7 +489,7 @@
 .funHubTitle { font-size: @font-size-title; font-weight: 700; color: var(--color-primary-content); letter-spacing: 0; }
 .funEntry { padding: 18px 16px; flex-direction: row; align-items: center; gap: 8px; background: linear-gradient(90deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .58)); box-shadow: 0 4px 12px rgba(83, 66, 43, .07); }
 .funEntry:active { background: linear-gradient(90deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .58)); }
-.funIconWrap, .cardIconWrap { box-shadow: none; }
+.funIconWrap { box-shadow: none; }
 .aboutBanner { background: var(--color-bg-card); box-shadow: 0 6px 18px rgba(83, 66, 43, .07); }
 .aboutBannerIcon { border: 0; background: var(--color-bg-card-soft); }
 .aboutBannerTitle { color: var(--color-text-secondary); font-weight: 500; }

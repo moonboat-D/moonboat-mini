@@ -102,25 +102,21 @@ export default function Index() {
 
   const renderCard = (
     i: (typeof cards)[number],
-    variant: "primary" | "wide" | "compact",
+    variant: "primary" | "wide",
   ) => {
     const imageSrc = "iconImage" in i ? i.iconImage : "";
     const backgroundImage = "backgroundImage" in i ? i.backgroundImage : "";
     const heroImage = "heroImage" in i ? i.heroImage : imageSrc;
-    const isFeatureCard = variant === "primary" || variant === "wide";
-
     return <View
       key={i.title}
       className={`${styles.card} ${
         variant === "primary"
           ? styles.primaryCard
-          : variant === "wide"
-            ? styles.wideCard
-            : styles.compactCard
+          : styles.wideCard
       } ${backgroundImage ? styles.fixedBackgroundCard : ""}`}
       onClick={() => handleCardClick(i)}
     >
-      {isFeatureCard ? <>
+      <>
         {backgroundImage ? <>
           <Image className={styles.featureBackground} src={backgroundImage} mode="aspectFill" />
           <View className={styles.featureBackdrop} />
@@ -133,36 +129,7 @@ export default function Index() {
           <Text className={styles.cardTitle}>{i.title}</Text>
           <Text className={styles.featureHint}>{"subtitle" in i ? i.subtitle : ""}</Text>
         </View>
-      </> : <>
-      <View className={styles.cardIconWrap}>
-        {"iconKind" in i && i.iconKind === "sudoku" ? (
-          <View className={styles.sudokuIcon}>
-            {Array.from({ length: 9 }, (_, index) => (
-              <View key={index} className={styles.sudokuIconCell}>
-                {index % 2 === 0 ? index + 1 : ""}
-              </View>
-            ))}
-          </View>
-        ) : "iconKind" in i && i.iconKind === "mbti" ? (
-          <View className={styles.mbtiIcon}>
-            <Text>MB</Text>
-            <Text>TI</Text>
-          </View>
-        ) : "iconKind" in i && i.iconKind === "about" ? (
-          <View className={styles.aboutIcon}>
-            <Text>i</Text>
-          </View>
-        ) : (
-          <Image src={imageSrc} className={styles.cardIconImage} mode="aspectFill" />
-        )}
-      </View>
-      <Text className={styles.cardTitle}>{i.title}</Text>
-      <View className={styles.cardOrnament}>
-        <View className={styles.ornamentLine} />
-        <View className={styles.ornamentDot} />
-        <View className={styles.ornamentLine} />
-      </View>
-      </>}
+      </>
     </View>;
   };
 

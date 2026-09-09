@@ -11,10 +11,6 @@
 
 .intro { margin-bottom: 24px; }
 .topNotice { display: block; height: 60px; padding: 0 20px; box-sizing: border-box; border-radius: 16px; font-size: @font-size-secondary; line-height: 60px; color: var(--color-gold-deep); background: rgba(202,137,65,.13); border: 0; }
-.helper { display: block; margin-top: 8px; font-size: @font-size-body; line-height: 1.55; color: var(--color-text-muted); }
-.tabs { display: flex; gap: 12px; margin-bottom: 18px; }
-.tab { flex: 1; padding: 17px 12px; text-align: center; border-radius: @radius-pill; background: var(--color-bg-card); color: var(--color-text-secondary); box-shadow: var(--shadow-card); font-size: @font-size-secondary; }
-.tabActive { color: var(--color-primary-content); font-weight: 700; background: var(--surface-primary); }
 .primaryButton, .secondaryButton { margin: 0; min-height: 72px; line-height: 72px; border-radius: @radius-pill; font-size: @font-size-body; }
 .primaryButton { color: var(--color-primary-content); background: var(--surface-primary); border: none; }
 .secondaryButton { color: var(--color-text-primary); background: var(--color-bg-card); border: 0; }
@@ -34,9 +30,8 @@
 .bulkTitle { display: block; font-size: @font-size-title; font-weight: 600; color: var(--color-text-primary); }
 .exampleCode { display: block; margin-top: 10px; padding: 16px; border-radius: 12px; white-space: pre-wrap; word-break: break-all; background: var(--color-bg-page-soft); color: var(--color-text-secondary); border: 0; font-family: monospace; font-size: @font-size-secondary; line-height: 1.5; }
 .field { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
-.fieldRow { display: flex; gap: 16px; .field { flex: 1; min-width: 0; } }
 .label { flex: 0 0 auto; width: 116px; font-size: @font-size-body; color: var(--color-text-secondary); }
-.requiredMark { margin-right: 6px; color: var(--color-error); font-size: 28px; font-weight: 700; }
+.requiredMark { margin-right: 6px; color: var(--color-error); font-size: @font-size-title; font-weight: 700; }
 .input, .textarea, .bulkTextarea { display: block; width: 100%; padding: 14px 16px; box-sizing: border-box; border-radius: 12px; background: var(--color-bg-page-soft); color: var(--color-text-primary) !important; font-size: @font-size-body; line-height: 1.5; border: 0; caret-color: var(--color-gold-deep); }
 .input, .textarea { flex: 1; min-width: 0; }
 .input { height: 76px; line-height: 76px; }
@@ -55,9 +50,9 @@
 .listItemTitle { display: block; flex: 1; min-width: 0; font-size: @font-size-body; font-weight: 600; color: var(--color-text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .listItemMeta { display: block; flex-shrink: 0; font-size: @font-size-secondary; color: var(--color-text-muted); }
 .listActions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-.actionButton { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border-radius: 18px; color: var(--color-gold-deep); background: fade(@color-gold, 10%); border: 0; font-size: 34px; line-height: 1; }
+.actionButton { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border-radius: 18px; color: var(--color-gold-deep); background: fade(@color-gold, 10%); border: 0; font-size: @font-size-page-title; line-height: 1; }
 .editAction { transform: rotate(90deg); }
-.deleteAction { color: var(--color-error); background: rgba(219, 136, 124, 0.1); border-color: rgba(219, 136, 124, 0.24); font-size: 38px; }
+.deleteAction { color: var(--color-error); background: rgba(219, 136, 124, 0.1); border-color: rgba(219, 136, 124, 0.24); }
 .bulkTextarea { min-height: 260px; margin-top: 16px; font-family: monospace; font-size: @font-size-body; }
 
 .copyIconBack, .copyIconFront { border: 2px solid var(--color-gold-deep); }

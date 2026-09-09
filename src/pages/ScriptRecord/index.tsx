@@ -268,21 +268,27 @@ export default function ScriptRecord() {
   };
 
   const renderModalMeta = (item: ScriptListItem) => {
-    if (item.type === "wishlist") {
-      return <Text className={styles.modalPlayTime}>{item.people ? `${item.people}人` : "人数待补充"}</Text>;
-    }
+    const meta = item.type === "wishlist"
+      ? [{ label: "人数:", value: item.people ? `${item.people}人` : "" }]
+      : [
+          { label: "游玩时间:", value: item.time?.trim() || "" },
+          { label: "评分:", value: item.score ? `${item.score}分` : "" },
+          { label: "角色:", value: item.role?.trim() || "" },
+        ];
 
-    const meta = [item.time?.trim(), item.score ? String(item.score) : "", item.role?.trim()].filter(Boolean);
-    if (!meta.length) return <Text className={styles.modalPlayTime}>信息待补充</Text>;
+    const visibleMeta = meta.filter(({ value }) => Boolean(value));
+
+    if (!visibleMeta.length) return null;
+
     return (
-      <>
-        {meta.map((value, index) => (
-          <View key={value} className={styles.modalMetaRow}>
-            {index ? <Text className={styles.modalMetaDivider}>·</Text> : null}
-            <Text className={styles.modalPlayTime}>{value}</Text>
+      <View className={styles.modalMetaGrid}>
+        {visibleMeta.map(({ label, value }) => (
+          <View key={label} className={styles.modalMetaItem}>
+            <Text className={styles.modalMetaLabel}>{label}</Text>
+            <Text className={styles.modalMetaValue}>{value}</Text>
           </View>
         ))}
-      </>
+      </View>
     );
   };
 
@@ -350,9 +356,7 @@ export default function ScriptRecord() {
                 />
                 <View className={styles.modalTopMeta}>
                   <Text className={styles.modalTitle}>{activeItem.name?.trim() || "未命名剧本"}</Text>
-                  <View className={styles.modalMetaRow}>
-                    {renderModalMeta(activeItem)}
-                  </View>
+                  {renderModalMeta(activeItem)}
                   {activeItem.type === "played" && activeItem.players?.length ? (
                     <ModalPlayersRow players={activeItem.players} />
                   ) : null}

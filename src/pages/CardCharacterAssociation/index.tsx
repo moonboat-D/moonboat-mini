@@ -7,9 +7,7 @@ import marketStyles from "../CardExchangeMarket/index.module.less";
 import styles from "./index.module.less";
 
 function ElementIcon({ element }: { element: typeof elements[number] }) {
-  return element.image
-    ? <Image className={styles.elementIcon} src={element.image} mode="aspectFit" />
-    : <Text className={styles.elementFallback} style={{ color: element.color }}>{element.name}</Text>;
+  return <Image className={styles.elementIcon} src={element.image} mode="aspectFit" />;
 }
 
 function CharacterAvatar({ name }: { name: string }) {
